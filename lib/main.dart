@@ -1,7 +1,14 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/shared/components/constants.dart';
 
 void main() {
-  runApp(const MyApp());
+  BlocOverrides.runZoned(
+        () {
+          runApp(const MyApp());
+    },
+    blocObserver: MyBlocObserver(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,6 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
