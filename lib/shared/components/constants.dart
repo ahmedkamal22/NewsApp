@@ -25,3 +25,5 @@ class MyBlocObserver extends BlocObserver {
     print('onClose -- ${bloc.runtimeType}');
   }
 }
+
+String myApiKey = "cbaae608a4d245ffa66d773bc49eb8fc";
