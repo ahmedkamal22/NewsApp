@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_app/shared/components/constants.dart';
+import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 import 'layout/home.dart';
 
@@ -12,6 +13,7 @@ void main() {
     },
     blocObserver: MyBlocObserver(),
   );
+  DioHelper.int();
 }
 
 class MyApp extends StatelessWidget {
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.deepOrange,
         appBarTheme: AppBarTheme(
           color: Colors.white,
           elevation: 0.0,
