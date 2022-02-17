@@ -5,16 +5,23 @@ Widget buildArticleItem(article, context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
-          Container(
-            width: 120.0,
-            height: 120.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-              image: DecorationImage(
-                image: NetworkImage("${article["urlToImage"]}"),
-                fit: BoxFit.cover,
+          ConditionalBuilder(
+            condition: article["urlToImage"] != null,
+            builder: (context) => Container(
+              width: 120.0,
+              height: 120.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                image: DecorationImage(
+                  image: NetworkImage("${article["urlToImage"]}"),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
+            fallback: (context) => Container(
+                width: 120,
+                height: 120,
+                child: Center(child: CircularProgressIndicator())),
           ),
           SizedBox(
             width: 10,
