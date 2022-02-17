@@ -8,6 +8,7 @@ import 'package:news_app/modules/sports/sports.dart';
 import 'package:news_app/modules/technology/technology.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/cubit/states.dart';
+import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsAppCubit extends Cubit<NewsAppStates> {
@@ -42,11 +43,18 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     emit(BottomNavIndexState());
   }
 
-  bool isDark = true;
+  bool isDark = false;
 
-  void changeMode() {
-    isDark = !isDark;
-    emit(ChangeState());
+  void changeMode({bool? fromShared}) {
+    if (fromShared != null) {
+      isDark = fromShared;
+      emit(ChangeState());
+    } else {
+      isDark = !isDark;
+      CacheHelper.putBooleanData(key: "isDark", value: isDark).then((value) {
+        emit(ChangeState());
+      });
+    }
   }
 
   List<dynamic> business = [];
