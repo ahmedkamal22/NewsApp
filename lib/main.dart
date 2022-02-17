@@ -42,6 +42,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              inputDecorationTheme: const InputDecorationTheme(
+                iconColor: Colors.black,
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
               scaffoldBackgroundColor: Colors.white,
               primarySwatch: Colors.deepOrange,
               appBarTheme: AppBarTheme(
@@ -72,6 +78,12 @@ class MyApp extends StatelessWidget {
               ),
             ),
             darkTheme: ThemeData(
+              inputDecorationTheme: const InputDecorationTheme(
+                iconColor: Colors.grey,
+                labelStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
               scaffoldBackgroundColor: color,
               primarySwatch: Colors.deepOrange,
               appBarTheme: AppBarTheme(

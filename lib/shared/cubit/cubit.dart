@@ -146,4 +146,21 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
       emit(GetHealthFailureState(error.toString()));
     });
   }
+
+  List<dynamic> search = [];
+
+  void getSearch(String value) {
+    emit(GetSearchLoadingState());
+    DioHelper.getData(url: "v2/everything", query: {
+      "q": "$value",
+      "apiKey": myApiKey,
+    }).then((value) {
+      search = value.data["articles"];
+      print(search[0]["title"]);
+      emit(GetSearchSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetSearchFailureState(error.toString()));
+    });
+  }
 }
