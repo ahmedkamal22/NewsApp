@@ -14,7 +14,7 @@ class Business extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var list = NewsAppCubit.get(context).business;
-          return articleBuilder(list);
+          return articleBuilder(list, context);
         });
   }
 }

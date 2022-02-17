@@ -4,6 +4,8 @@ class InitialState extends NewsAppStates {}
 
 class BottomNavIndexState extends NewsAppStates {}
 
+class ChangeState extends NewsAppStates {}
+
 class GetBusinessSuccessState extends NewsAppStates {}
 
 class GetBusinessFailureState extends NewsAppStates {
@@ -34,7 +36,6 @@ class GetScienceFailureState extends NewsAppStates {
 
 class GetScienceLoadingState extends NewsAppStates {}
 
-//
 class GetTechnologySuccessState extends NewsAppStates {}
 
 class GetTechnologyFailureState extends NewsAppStates {
@@ -44,3 +45,13 @@ class GetTechnologyFailureState extends NewsAppStates {
 }
 
 class GetTechnologyLoadingState extends NewsAppStates {}
+
+class GetHealthSuccessState extends NewsAppStates {}
+
+class GetHealthFailureState extends NewsAppStates {
+  final String error;
+
+  GetHealthFailureState(this.error);
+}
+
+class GetHealthLoadingState extends NewsAppStates {}

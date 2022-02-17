@@ -1,7 +1,7 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 
-Widget buildArticleItem(article) => Padding(
+Widget buildArticleItem(article, context) => Padding(
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
@@ -31,10 +31,7 @@ Widget buildArticleItem(article) => Padding(
                       "${article["title"]}",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ),
                   Text(
@@ -49,17 +46,18 @@ Widget buildArticleItem(article) => Padding(
       ),
     );
 
-Widget articleBuilder(list) => ConditionalBuilder(
+Widget articleBuilder(list, context) => ConditionalBuilder(
       condition: list.isNotEmpty,
       builder: (context) => ListView.separated(
           physics: BouncingScrollPhysics(),
-          itemBuilder: (context, index) => buildArticleItem(list[index]),
+          itemBuilder: (context, index) =>
+              buildArticleItem(list[index], context),
           separatorBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Container(
                   width: double.infinity,
                   height: 1.0,
-                  color: Colors.black26,
+                  color: Colors.grey,
                 ),
               ),
           itemCount: list.length),

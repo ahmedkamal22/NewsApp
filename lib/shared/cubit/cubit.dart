@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/business/business.dart';
+import 'package:news_app/modules/health/health.dart';
 import 'package:news_app/modules/science/science.dart';
 import 'package:news_app/modules/settings/settings.dart';
 import 'package:news_app/modules/sports/sports.dart';
@@ -20,7 +21,7 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     Sports(),
     Science(),
     Technology(),
-    Settings(),
+    Health(),
   ];
 
   List<BottomNavigationBarItem> items = [
@@ -32,12 +33,20 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     BottomNavigationBarItem(icon: Icon(Icons.science), label: "Science"),
     BottomNavigationBarItem(
         icon: Icon(Icons.computer_rounded), label: "Technology"),
-    BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+    BottomNavigationBarItem(
+        icon: Icon(Icons.health_and_safety_outlined), label: "Health"),
   ];
 
   void changeIndex(int index) {
     currentIndex = index;
     emit(BottomNavIndexState());
+  }
+
+  bool isDark = true;
+
+  void changeMode() {
+    isDark = !isDark;
+    emit(ChangeState());
   }
 
   List<dynamic> business = [];
@@ -109,6 +118,24 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     }).catchError((error) {
       print(error.toString());
       emit(GetTechnologyFailureState(error.toString()));
+    });
+  }
+
+  List<dynamic> health = [];
+
+  void getHealthData() {
+    emit(GetHealthLoadingState());
+    DioHelper.getData(url: "v2/top-headlines", query: {
+      "country": "eg",
+      "category": "health",
+      "apiKey": myApiKey,
+    }).then((value) {
+      health = value.data["articles"];
+      print(health[0]["title"]);
+      emit(GetHealthSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetHealthFailureState(error.toString()));
     });
   }
 }

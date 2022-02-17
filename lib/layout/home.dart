@@ -17,7 +17,8 @@ class Home extends StatelessWidget {
         ..getBusinessData()
         ..getSportsData()
         ..getScienceData()
-        ..getTechnologyData(),
+        ..getTechnologyData()
+        ..getHealthData(),
       child: BlocConsumer<NewsAppCubit, NewsAppStates>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -26,7 +27,12 @@ class Home extends StatelessWidget {
               appBar: AppBar(
                 title: Text("News App"),
                 actions: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.search))
+                  IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+                  IconButton(
+                      onPressed: () {
+                        cubit.changeMode();
+                      },
+                      icon: Icon(Icons.brightness_4_outlined)),
                 ],
               ),
               body: cubit.screens[cubit.currentIndex],
