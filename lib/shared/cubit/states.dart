@@ -55,3 +55,13 @@ class GetHealthFailureState extends NewsAppStates {
 }
 
 class GetHealthLoadingState extends NewsAppStates {}
+
+class GetSearchSuccessState extends NewsAppStates {}
+
+class GetSearchFailureState extends NewsAppStates {
+  final String error;
+
+  GetSearchFailureState(this.error);
+}
+
+class GetSearchLoadingState extends NewsAppStates {}

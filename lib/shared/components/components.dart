@@ -70,3 +70,41 @@ Widget articleBuilder(list, context) => ConditionalBuilder(
           itemCount: list.length),
       fallback: (context) => const Center(child: CircularProgressIndicator()),
     );
+
+void navigateTo(context, widget) =>
+    Navigator.push(context, MaterialPageRoute(builder: (context) => widget));
+
+Widget defaultFormField({
+  @required TextInputType? keyboard_type,
+  @required TextEditingController? controller_type,
+  @required String? label_text,
+  IconData? prefix_icon,
+  IconData? suffix_icon,
+  Function(String)? onChange,
+  TextStyle? style,
+  Function(String)? onSubmit,
+  VoidCallback? onTap,
+  @required String? Function(String?)? Validate,
+  VoidCallback? isPasswordVisible,
+  bool isVisible = false,
+}) =>
+    TextFormField(
+      style: style,
+      keyboardType: keyboard_type,
+      controller: controller_type,
+      obscureText: isVisible,
+      onChanged: onChange,
+      onTap: onTap,
+      onFieldSubmitted: onSubmit,
+      validator: Validate,
+      decoration: InputDecoration(
+        labelText: label_text,
+        prefixIcon: Icon(prefix_icon),
+        suffixIcon: suffix_icon != null
+            ? IconButton(onPressed: isPasswordVisible, icon: Icon(suffix_icon))
+            : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+    );
