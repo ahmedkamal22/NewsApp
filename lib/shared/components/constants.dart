@@ -26,4 +26,4 @@ class MyBlocObserver extends BlocObserver {
   }
 }
 
-String myApiKey = "cbaae608a4d245ffa66d773bc49eb8fc";
+String myApiKey = "7c8847dea5514adab5ed76ea97ab579c";
