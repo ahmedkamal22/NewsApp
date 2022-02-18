@@ -59,7 +59,7 @@ Widget buildArticleItem(article, context) => InkWell(
       ),
     );
 
-Widget articleBuilder(list, context) => ConditionalBuilder(
+Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       condition: list.isNotEmpty,
       builder: (context) => ListView.separated(
           physics: BouncingScrollPhysics(),
@@ -74,7 +74,8 @@ Widget articleBuilder(list, context) => ConditionalBuilder(
                 ),
               ),
           itemCount: list.length),
-      fallback: (context) => const Center(child: CircularProgressIndicator()),
+      fallback: (context) =>
+          isSearch ? Container() : Center(child: CircularProgressIndicator()),
     );
 
 void navigateTo(context, widget) =>
