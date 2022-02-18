@@ -40,6 +40,7 @@ dependencies:
   conditional_builder: ^1.0.2
   hexcolor: ^2.0.6
   shared_preferences: ^2.0.13
+  webview_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:
