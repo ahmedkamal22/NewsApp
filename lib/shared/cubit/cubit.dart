@@ -43,7 +43,7 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     emit(BottomNavIndexState());
   }
 
-  bool isDark = false;
+  bool isDark = true;
 
   void changeMode({bool? fromShared}) {
     if (fromShared != null) {

@@ -14,43 +14,37 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => NewsAppCubit()
-        ..getBusinessData()
-        ..getSportsData()
-        ..getScienceData()
-        ..getTechnologyData()
-        ..getHealthData(),
-      child: BlocConsumer<NewsAppCubit, NewsAppStates>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            NewsAppCubit cubit = NewsAppCubit.get(context);
-            return Scaffold(
-              appBar: AppBar(
-                title: Text("News App"),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        navigateTo(context, Search());
-                      },
-                      icon: Icon(Icons.search)),
-                  IconButton(
-                      onPressed: () {
-                        cubit.changeMode();
-                      },
-                      icon: Icon(Icons.brightness_4_outlined)),
-                ],
-              ),
-              body: cubit.screens[cubit.currentIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                currentIndex: cubit.currentIndex,
-                onTap: (index) {
-                  cubit.changeIndex(index);
-                },
-                items: cubit.items,
-              ),
-            );
-          }),
-    );
+    return BlocConsumer<NewsAppCubit, NewsAppStates>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          NewsAppCubit cubit = NewsAppCubit.get(context);
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("News App"),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      navigateTo(context, Search());
+                    },
+                    icon: Icon(Icons.search)),
+                IconButton(
+                    onPressed: () {
+                      cubit.changeMode();
+                    },
+                    icon: !cubit.isDark
+                        ? Icon(Icons.brightness_4_outlined)
+                        : Icon(Icons.wb_sunny_rounded)),
+              ],
+            ),
+            body: cubit.screens[cubit.currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: cubit.currentIndex,
+              onTap: (index) {
+                cubit.changeIndex(index);
+              },
+              items: cubit.items,
+            ),
+          );
+        });
   }
 }
