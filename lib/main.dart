@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:news_app/shared/components/constants.dart';
+import 'package:news_app/shared/cubit/app_cubit.dart';
+import 'package:news_app/shared/cubit/app_states.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/network/local/cache_helper.dart';
@@ -14,6 +16,8 @@ import 'layout/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  DioHelper.int();
+  await CacheHelper.int();
   bool? isDark = CacheHelper.getBooleanData(key: "isDark");
   BlocOverrides.runZoned(
     () {
@@ -21,8 +25,6 @@ void main() async {
     },
     blocObserver: MyBlocObserver(),
   );
-  DioHelper.int();
-  await CacheHelper.int();
 }
 
 class MyApp extends StatelessWidget {
@@ -37,9 +39,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => NewsAppCubit()..changeMode(fromShared: isDark),
-        ),
-        BlocProvider(
           create: (context) => NewsAppCubit()
             ..getBusinessData()
             ..getSportsData()
@@ -47,11 +46,14 @@ class MyApp extends StatelessWidget {
             ..getTechnologyData()
             ..getHealthData(),
         ),
+        BlocProvider(
+          create: (context) => AppCubit()..changeMode(fromShared: isDark),
+        ),
       ],
-      child: BlocConsumer<NewsAppCubit, NewsAppStates>(
+      child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          NewsAppCubit cubit = NewsAppCubit.get(context);
+          AppCubit cubit = AppCubit.get(context);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

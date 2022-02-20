@@ -4,8 +4,6 @@ class InitialState extends NewsAppStates {}
 
 class BottomNavIndexState extends NewsAppStates {}
 
-class ChangeState extends NewsAppStates {}
-
 class GetBusinessSuccessState extends NewsAppStates {}
 
 class GetBusinessFailureState extends NewsAppStates {
