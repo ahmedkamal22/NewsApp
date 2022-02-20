@@ -43,20 +43,6 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     emit(BottomNavIndexState());
   }
 
-  bool isDark = true;
-
-  void changeMode({bool? fromShared}) {
-    if (fromShared != null) {
-      isDark = fromShared;
-      emit(ChangeState());
-    } else {
-      isDark = !isDark;
-      CacheHelper.putBooleanData(key: "isDark", value: isDark).then((value) {
-        emit(ChangeState());
-      });
-    }
-  }
-
   List<dynamic> business = [];
 
   void getBusinessData() {

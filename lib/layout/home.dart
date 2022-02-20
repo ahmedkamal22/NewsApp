@@ -5,6 +5,7 @@ import 'package:news_app/modules/business/business.dart';
 import 'package:news_app/modules/search/search.dart';
 import 'package:news_app/shared/components/components.dart';
 import 'package:news_app/shared/components/constants.dart';
+import 'package:news_app/shared/cubit/app_cubit.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
@@ -18,6 +19,7 @@ class Home extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           NewsAppCubit cubit = NewsAppCubit.get(context);
+          AppCubit appCubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               title: Text("News App"),
@@ -29,9 +31,9 @@ class Home extends StatelessWidget {
                     icon: Icon(Icons.search)),
                 IconButton(
                     onPressed: () {
-                      cubit.changeMode();
+                      appCubit.changeMode();
                     },
-                    icon: !cubit.isDark
+                    icon: !appCubit.isDark
                         ? Icon(Icons.brightness_4_outlined)
                         : Icon(Icons.wb_sunny_rounded)),
               ],

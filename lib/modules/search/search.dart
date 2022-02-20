@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/business/business.dart';
 import 'package:news_app/shared/components/components.dart';
+import 'package:news_app/shared/cubit/app_cubit.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
 
@@ -35,7 +36,7 @@ class Search extends StatelessWidget {
                   },
                   prefix_icon: Icons.search_rounded,
                   style: TextStyle(
-                    color: NewsAppCubit.get(context).isDark
+                    color: AppCubit.get(context).isDark
                         ? Colors.white
                         : Colors.black,
                   ),
