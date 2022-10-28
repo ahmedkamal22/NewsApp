@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -11,11 +14,14 @@ import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import 'layout/home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // if (Platform.isLinux)
+  //   await DesktopWindow.setMinWindowSize(Size(500.0, 700.0));
   DioHelper.int();
   await CacheHelper.int();
   bool? isDark = CacheHelper.getBooleanData(key: "isDark");
@@ -130,11 +136,10 @@ class MyApp extends StatelessWidget {
               ),
             ),
             themeMode: cubit.isDark ? ThemeMode.dark : ThemeMode.light,
-            home: Home(),
+            home: const Home(),
           );
         },
       ),
     );
   }
 }
-
