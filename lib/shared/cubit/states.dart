@@ -63,3 +63,7 @@ class GetSearchFailureState extends NewsAppStates {
 }
 
 class GetSearchLoadingState extends NewsAppStates {}
+
+class GetSelectedTitleState extends NewsAppStates {}
+
+class SetDesktopState extends NewsAppStates {}

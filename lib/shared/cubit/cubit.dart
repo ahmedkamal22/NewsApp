@@ -44,6 +44,7 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   }
 
   List<dynamic> business = [];
+  int selectedTitle = 0;
 
   void getBusinessData() {
     emit(GetBusinessLoadingState());
@@ -59,6 +60,18 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
       print(error.toString());
       emit(GetBusinessFailureState(error.toString()));
     });
+  }
+
+  selectedItem(int index) {
+    selectedTitle = index;
+    emit(GetSelectedTitleState());
+  }
+
+  bool isDesktop = false;
+
+  setDesktop(bool value) {
+    isDesktop = value;
+    emit(SetDesktopState());
   }
 
   List<dynamic> sports = [];
