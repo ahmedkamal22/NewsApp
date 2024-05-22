@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/modules/business/business.dart';
 import 'package:news_app/modules/health/health.dart';
 import 'package:news_app/modules/science/science.dart';
-import 'package:news_app/modules/settings/settings.dart';
 import 'package:news_app/modules/sports/sports.dart';
 import 'package:news_app/modules/technology/technology.dart';
 import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/cubit/states.dart';
-import 'package:news_app/shared/network/local/cache_helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class NewsAppCubit extends Cubit<NewsAppStates> {
@@ -18,23 +16,23 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   int currentIndex = 0;
 
   List<Widget> screens = [
-    Business(),
-    Sports(),
-    Science(),
-    Technology(),
-    Health(),
+    const Business(),
+    const Sports(),
+    const Science(),
+    const Technology(),
+    const Health(),
   ];
 
   List<BottomNavigationBarItem> items = [
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
       icon: Icon(Icons.business),
       label: "Business",
     ),
-    BottomNavigationBarItem(icon: Icon(Icons.sports), label: "Sports"),
-    BottomNavigationBarItem(icon: Icon(Icons.science), label: "Science"),
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(icon: Icon(Icons.sports), label: "Sports"),
+    const BottomNavigationBarItem(icon: Icon(Icons.science), label: "Science"),
+    const BottomNavigationBarItem(
         icon: Icon(Icons.computer_rounded), label: "Technology"),
-    BottomNavigationBarItem(
+    const BottomNavigationBarItem(
         icon: Icon(Icons.health_and_safety_outlined), label: "Health"),
   ];
 
@@ -49,12 +47,11 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   void getBusinessData() {
     emit(GetBusinessLoadingState());
     DioHelper.getData(url: "v2/top-headlines", query: {
-      "country": "eg",
+      "country": "us",
       "category": "business",
       "apiKey": myApiKey,
     }).then((value) {
       business = value.data["articles"];
-      print(business[0]["title"]);
       emit(GetBusinessSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -62,29 +59,16 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
     });
   }
 
-  selectedItem(int index) {
-    selectedTitle = index;
-    emit(GetSelectedTitleState());
-  }
-
-  bool isDesktop = false;
-
-  setDesktop(bool value) {
-    isDesktop = value;
-    emit(SetDesktopState());
-  }
-
   List<dynamic> sports = [];
 
   void getSportsData() {
     emit(GetSportsLoadingState());
     DioHelper.getData(url: "v2/top-headlines", query: {
-      "country": "eg",
+      "country": "us",
       "category": "sports",
       "apiKey": myApiKey,
     }).then((value) {
       sports = value.data["articles"];
-      print(sports[0]["title"]);
       emit(GetSportsSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -97,12 +81,11 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   void getScienceData() {
     emit(GetScienceLoadingState());
     DioHelper.getData(url: "v2/top-headlines", query: {
-      "country": "eg",
+      "country": "us",
       "category": "science",
       "apiKey": myApiKey,
     }).then((value) {
       science = value.data["articles"];
-      print(science[0]["title"]);
       emit(GetScienceSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -115,12 +98,11 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   void getTechnologyData() {
     emit(GetTechnologyLoadingState());
     DioHelper.getData(url: "v2/top-headlines", query: {
-      "country": "eg",
+      "country": "us",
       "category": "technology",
       "apiKey": myApiKey,
     }).then((value) {
       technology = value.data["articles"];
-      print(technology[0]["title"]);
       emit(GetTechnologySuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -133,12 +115,11 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   void getHealthData() {
     emit(GetHealthLoadingState());
     DioHelper.getData(url: "v2/top-headlines", query: {
-      "country": "eg",
+      "country": "us",
       "category": "health",
       "apiKey": myApiKey,
     }).then((value) {
       health = value.data["articles"];
-      print(health[0]["title"]);
       emit(GetHealthSuccessState());
     }).catchError((error) {
       print(error.toString());
@@ -151,11 +132,10 @@ class NewsAppCubit extends Cubit<NewsAppStates> {
   void getSearch(String value) {
     emit(GetSearchLoadingState());
     DioHelper.getData(url: "v2/everything", query: {
-      "q": "$value",
+      "q": value,
       "apiKey": myApiKey,
     }).then((value) {
       search = value.data["articles"];
-      print(search[0]["title"]);
       emit(GetSearchSuccessState());
     }).catchError((error) {
       print(error.toString());

@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/modules/business/business.dart';
 import 'package:news_app/modules/search/search.dart';
 import 'package:news_app/shared/components/components.dart';
-import 'package:news_app/shared/components/constants.dart';
 import 'package:news_app/shared/cubit/app_cubit.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
-import 'package:news_app/shared/network/remote/dio_helper.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,20 +18,13 @@ class Home extends StatelessWidget {
           AppCubit appCubit = AppCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: Text("News App"),
+              title: const Text("News App"),
               actions: [
                 IconButton(
                     onPressed: () {
                       navigateTo(context, Search());
                     },
-                    icon: Icon(Icons.search)),
-                IconButton(
-                    onPressed: () {
-                      appCubit.changeMode();
-                    },
-                    icon: !appCubit.isDark
-                        ? Icon(Icons.brightness_4_outlined)
-                        : Icon(Icons.wb_sunny_rounded)),
+                    icon: const Icon(Icons.search)),
               ],
             ),
             body: cubit.screens[cubit.currentIndex],

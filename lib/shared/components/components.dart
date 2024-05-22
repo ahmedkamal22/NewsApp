@@ -1,18 +1,14 @@
-import 'package:conditional_builder/conditional_builder.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/modules/webview/webview.dart';
 import 'package:news_app/shared/cubit/app_cubit.dart';
 import 'package:news_app/shared/cubit/cubit.dart';
 
 Widget buildArticleItem(article, context, index) => Container(
-      color: NewsAppCubit.get(context).selectedTitle == index &&
-              NewsAppCubit.get(context).isDesktop
-          ? Colors.grey[200]
-          : null,
+  color: Colors.white,
       child: InkWell(
         onTap: () {
-          NewsAppCubit.get(context).selectedItem(index);
-          // navigateTo(context, WebViewScreen(article["url"]));
+          navigateTo(context, WebViewScreen(article["url"]));
         },
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -31,16 +27,16 @@ Widget buildArticleItem(article, context, index) => Container(
                     ),
                   ),
                 ),
-                fallback: (context) => Container(
+            fallback: (context) => const SizedBox(
                     width: 120,
                     height: 120,
                     child: Center(child: CircularProgressIndicator())),
               ),
-              SizedBox(
+          const SizedBox(
                 width: 10,
               ),
               Expanded(
-                child: Container(
+                child: SizedBox(
                   height: 120.0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +49,7 @@ Widget buildArticleItem(article, context, index) => Container(
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyLarge!
                               .copyWith(
                                   color:
                                       NewsAppCubit.get(context).selectedTitle ==
@@ -66,7 +62,7 @@ Widget buildArticleItem(article, context, index) => Container(
                       ),
                       Text(
                         "${article["publishedAt"]}",
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
@@ -81,7 +77,7 @@ Widget buildArticleItem(article, context, index) => Container(
 Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
       condition: list.isNotEmpty,
       builder: (context) => ListView.separated(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) =>
               buildArticleItem(list[index], context, index),
           separatorBuilder: (context, index) => Padding(
@@ -93,8 +89,9 @@ Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
                 ),
               ),
           itemCount: list.length),
-      fallback: (context) =>
-          isSearch ? Container() : Center(child: CircularProgressIndicator()),
+      fallback: (context) => isSearch
+          ? Container()
+          : const Center(child: CircularProgressIndicator()),
     );
 
 void navigateTo(context, widget) =>
