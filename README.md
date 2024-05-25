@@ -1,7 +1,7 @@
 **News App: Your Global News Companion**
 
 **Overview**
-NewsApp is a cutting-edge mobile application designed to bring the latest news from around the world
+NewsApp is a cutting-edge mobile application which getting data from API designed to bring the latest news from around the world
 directly to your fingertips. Whether you're interested in breaking news, in-depth analysis, or
 specialized topics, NewsApp has you covered with comprehensive and real-time updates.
 
